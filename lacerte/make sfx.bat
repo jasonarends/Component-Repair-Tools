@@ -1,1 +1,1 @@
-copy /b 7zS.sfx + config.txt + lacerte.7z LacerteComponentRepair.exe
+copy /b 7zS.sfx + config.txt + lacerte.7z build\Lacerte_Component_Repair_Tool.exe
