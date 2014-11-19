@@ -1,0 +1,1 @@
+copy /b 7zS.sfx + config.txt + proseries.7z build\ProSeries_Component_Repair_Tool.exe

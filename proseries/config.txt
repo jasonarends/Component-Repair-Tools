@@ -1,0 +1,5 @@
+﻿;!@Install@!UTF-8!
+Title="ProSeries Component Repair Tool"
+BeginPrompt="Do you want to run the ProSeries Component Repair Tool?"
+RunProgram="proseries.bat"
+;!@InstallEnd@!
