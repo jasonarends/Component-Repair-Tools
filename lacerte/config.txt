@@ -1,0 +1,5 @@
+﻿;!@Install@!UTF-8!
+Title="Lacerte Component Repair Tool"
+BeginPrompt="Do you want to run the Lacerte Component Repair Tool?"
+RunProgram="lacerte.bat"
+;!@InstallEnd@!

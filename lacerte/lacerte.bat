@@ -1,5 +1,5 @@
 @ECHO OFF
-color 0f
+color 9f
 echo Ending Lacerte Processes in the Background...
 PING -n 3 127.0.0.1 >NUL
 for /f "tokens=1" %%i in ('tasklist /nh /fi "imagename eq w*"') do echo %%i | find "tax.exe" && taskkill /f /fi "imagename eq %%i"
@@ -31,7 +31,7 @@ regsvr32 /u /s c:\windows\syswow64\msxml6.dll
 echo Installing MSXML 4.0 SP3...
 PING -n 3 127.0.0.1 >NUL
 
-msiexec /fa msxml4sp3.msi /passive 
+start /wait msiexec /fa msxml4sp3.msi /passive 
 
 echo Reregistering MSXML6 DLLs...
 PING -n 3 127.0.0.1 >NUL
@@ -40,15 +40,23 @@ regsvr32 /s msxml6.dll
 regsvr32 /s c:\windows\syswow64\msxml6.dll
 
 echo Repairing Java Runtime Components...
-msiexec /fa JRESetup.msi /passive
+start /wait msiexec /f JRESetup.msi /norestart
+PING -n 3 127.0.0.1 >NUL
+
+echo Repairing Microsoft WSE 3.0...
+start /wait msiexec /fa MicrosoftWSE30Runtime.msi /passive /norestart
 PING -n 3 127.0.0.1 >NUL
 
 echo Repairing Microsoft .NET 3.5 (this may take a few minutes)...
-call dotnetfx35.exe /f /norestart
+echo *** A message about enabling .NET 3.5 via the control panel is normal ***
+start /wait dotnetfx35.exe /f /norestart
 
 echo Repairing Microsoft .NET 4.5 (this may take a few minutes)...
-call dotNetFx45_Full_setup.exe /repair /passive /norestart
+start /wait dotNetFx45_Full_setup.exe /repair /passive /norestart
 
-echo Running .NET Checker (Make sure to select .NET 3.5 and 4.5 to Verify...
-PING -n 7 127.0.0.1 >NUL
-call netfx_setupverifier.exe
+echo Running .NET Checker (Make sure to manually verify .NET 3.5 and 4.5.1...
+PING -n 3 127.0.0.1 >NUL
+start /wait netfx_setupverifier.exe
+
+echo *** A reboot is recommended at this time ***
+pause
