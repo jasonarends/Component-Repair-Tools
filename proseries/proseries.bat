@@ -22,22 +22,26 @@ echo Starting Windows Installer Service...
 PING -n 3 127.0.0.1 >NUL
 net start MSIServer
 
-Echo Unregistering MSXML4 and MSXML6 DLLs...
+Echo Unregistering MSXML4 DLLs...
 PING -n 3 127.0.0.1 >NUL
-regsvr32 /u /s msxml4.dll
-regsvr32 /u /s c:\windows\syswow64\msxml4.dll
+start /wait regsvr32 /u /s msxml4.dll
+start /wait regsvr32 /u /s c:\windows\syswow64\msxml4.dll
 
-regsvr32 /u /s msxml6.dll
-regsvr32 /u /s c:\windows\syswow64\msxml6.dll
+Echo Uninstalling MSXML 4.0 SP3...
+PING -n 3 127.0.0.1 >NUL
+start /wait msiexec /x msxml4sp3.msi /passive /norestart
+
+Echo Unregistering MSXML6 DLLs...
+PING -n 3 127.0.0.1 >NUL
+start /wait regsvr32 /u /s msxml6.dll
+start /wait regsvr32 /u /s c:\windows\syswow64\msxml6.dll
 
 echo Installing MSXML 4.0 SP3...
 PING -n 3 127.0.0.1 >NUL
-
-start /wait msiexec /fa msxml4sp3.msi /passive 
+start /wait msiexec /i msxml4sp3.msi /passive /norestart
 
 echo Reregistering MSXML6 DLLs...
 PING -n 3 127.0.0.1 >NUL
-
 regsvr32 /s msxml6.dll
 regsvr32 /s c:\windows\syswow64\msxml6.dll
 
